@@ -20,6 +20,11 @@ const routes = [
     component: () => import('@/views/TestEcharts.vue'),
   },
   {
+    path: '/Echarts-Single',
+    name: 'echartsSingle',
+    component: () => import('@/views/Echarts-Single.vue'),
+  },
+  {
     path: '*',
     redirect: '/a'
   },

@@ -68,7 +68,7 @@ export default {
         position: {
           options: posList.reduce(function (map, pos) {
             map[pos] = pos;
-            // console.log(map);
+            console.log(map);
             return map;
           }, {}),
         },
@@ -314,9 +314,9 @@ export default {
     add() {
       this.chartInstance.setOption({
         series: [{
-        data: [150, 230, 224, 218, 135],
-        type: 'line'
-    }]
+          data: [150, 230, 224, 218, 135],
+          type: 'line'
+        }]
       })
     },
   },
