@@ -1,5 +1,9 @@
 <template>
+<div>
   <div ref="myChart" style="width: 100%; height: 90vh"></div>
+  <button @click="addLine">添加折线图</button>
+  <button @click="reset">重置</button>
+</div>
 </template>
 
 <script>
@@ -91,6 +95,9 @@ export default {
             emphasis: {
               focus: "series",
             },
+            itemStyle: {
+              color: '#4339F2'
+            },
             data: [],
 						label: this.labelOption,
           },
@@ -102,6 +109,9 @@ export default {
             stack: "stack",
             emphasis: {
               focus: "series",
+            },
+            itemStyle: {
+              color: '#F1667D'
             },
             data: [],
 						label: this.labelOption,
@@ -115,6 +125,9 @@ export default {
             emphasis: {
               focus: "series",
             },
+            itemStyle: {
+              color: '#34B53A'
+            },
             data: [],
 						label: this.labelOption,
           },
@@ -126,6 +139,9 @@ export default {
             stack: "stack",
             emphasis: {
               focus: "series",
+            },
+            itemStyle: {
+              color: '#FFC94D'
             },
             data: [],
 						label: this.labelOption,
@@ -140,6 +156,9 @@ export default {
             emphasis: {
               focus: "series",
             },
+            itemStyle: {
+              color: '#9A8AD8'
+            },
 						label: this.labelOption,
           },
         ],
@@ -149,7 +168,7 @@ export default {
         this.echartsInstance.resize(); //页面大小变化后Echarts也更改大小
       });
     },
-		// async
+		// 异步请求
 		asyncApi() {
 			return new Promise((resolve) => {
 				setTimeout(() => {
@@ -165,6 +184,7 @@ export default {
 				}, 2000);
 			})
 		},
+    // 填充数据
 		fetchData() {
 			this.echartsInstance.showLoading()
 			this.asyncApi()
@@ -199,7 +219,40 @@ export default {
 				})
 				this.echartsInstance.hideLoading()
 			})
-		}
+		},
+    // 获取折线图数据
+    fetchLineDate() {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const result = {
+            data: [900, 1000, 1200 ,800, 1400, 1600, 1100]
+          }
+          resolve(result)
+        }, 2000);
+      })
+    },
+    // 添加折线图
+    addLine() {
+      this.echartsInstance.showLoading()
+      this.fetchLineDate()
+      .then(res => {
+        this.echartsInstance.setOption({
+          series: [
+            {
+              type: 'line',
+              data: res.data
+            }
+          ]
+        })
+        this.echartsInstance.hideLoading()
+      })
+    },
+    // 重置
+    reset() {
+      this.echartsInstance.clear()
+      this.initEcharts()
+      this.fetchData()
+    },
   },
 };
 </script>
